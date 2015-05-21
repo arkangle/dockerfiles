@@ -1,5 +1,5 @@
 upstream uwsgi {
-  server uwsgi:8080;
+  server uwsgi:UWSGI_PORT;
 }
 server {
     listen      443 default;

@@ -8,6 +8,7 @@ ca-certificates
 EXPOSE 443 80
 
 COPY nginx.default /etc/nginx/sites-enabled/default
-VOLUME ["/etc/nginx/ssl"]
+COPY server.crt /etc/nginx/ssl/server.crt
+COPY server.key /etc/nginx/ssl/server.key
 
 CMD ["nginx", "-g", "daemon off;"]

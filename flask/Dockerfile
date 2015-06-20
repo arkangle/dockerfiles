@@ -15,4 +15,4 @@ WORKDIR /opt/app
 VOLUME ['/opt/app']
 EXPOSE 8080
 
-ENTRYPOINT [ "/usr/bin/python3","flask_server.py" ]
+ENTRYPOINT [ "/usr/bin/python3","run.py" ]

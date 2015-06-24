@@ -6,7 +6,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 python3-pip \
 python3-dev
 
-RUN pip3 install uwsgi flask sqlalchemy
+RUN pip3 install uwsgi flask flask-sqlalchemy
 
 RUN useradd -d /opt/app uwsgi
 

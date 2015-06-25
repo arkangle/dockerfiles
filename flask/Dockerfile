@@ -12,7 +12,7 @@ RUN useradd -d /opt/app uwsgi
 
 USER uwsgi
 WORKDIR /opt/app
-VOLUME ['/opt/app']
+VOLUME /opt/app
 EXPOSE 8080
 
 ENTRYPOINT [ "/usr/bin/python3","run.py" ]

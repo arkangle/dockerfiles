@@ -2,6 +2,7 @@ From debian:jessie
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 ruby2.1 \
+ruby2.1-dev \
 imagemagick \
 vim-nox \
 less \

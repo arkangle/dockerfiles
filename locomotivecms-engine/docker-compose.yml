@@ -6,8 +6,3 @@ engine:
   - "127.0.0.1:8080:8080"
   links:
   - mongodb
-
-wagon:
-  build: ../locomotivecms-wagon
-  links: 
-  - engine

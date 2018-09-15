@@ -6,6 +6,7 @@ libssl1.0 \
 openssl \
 ca-certificates \
 jq \
+curl \
 && apk add --no-cache --virtual .build-deps \
 gcc \
 linux-headers \
@@ -17,5 +18,5 @@ binutils \
 && apk del .build-deps
 
 COPY conf /certbot/nginx/conf.tmpl
-COPY entrypoint.sh /usr/local/bin/
+COPY bin /usr/local/bin
 ENTRYPOINT ["entrypoint.sh"]

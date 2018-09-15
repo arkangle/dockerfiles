@@ -2,6 +2,7 @@ version: '3'
 services:
   proxy:
     image: nginx:stable-alpine
+    container_name: odoo-proxy
     ports:
     - "80:80"
     - "443:443"
@@ -15,10 +16,12 @@ services:
     image: certbot
     environment:
       - PROXY_URL=http://odoo:8069
+      - PROXY_CONTAINER=odoo-proxy
     volumes:
     - ./proxy/certs:/etc/letsencrypt
     - ./proxy/www:/certbot/nginx/www
     - ./proxy/conf:/certbot/nginx/conf
+    - /var/run/docker.sock:/var/run/docker.sock:ro
   odoo:
     image: odoo:10
     depends_on:

@@ -11,10 +11,14 @@ elif [ "$1" == "init" ];then
       cp /certbot/nginx/conf.tmpl/$file.tmpl /certbot/nginx/conf/$file
     fi
   done
+elif [ "$1" == "renew" ];then
+  certbot renew
+  nginx_reload.sh $PROXY_CONTAINER
 elif [ "$1" == "add" -a -n "$2" ];then
   DOMAIN=$2
   certbot certonly --webroot -w /certbot/nginx/www -d $DOMAIN
   sed "s#DOMAIN#$DOMAIN#" /certbot/nginx/conf.tmpl/site.conf.tmpl > /certbot/nginx/conf/$DOMAIN-site.conf
-elif [ "$1" == "renew" ];then
-  certbot renew
+  nginx_reload.sh $PROXY_CONTAINER
+elif [ "$1" == "sh" ];then
+  exec sh
 fi

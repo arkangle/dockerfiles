@@ -1,0 +1,8 @@
+server {
+  include conf.d/ssl-common.include
+  include conf.d/proxy-common.include
+  server_name               DOMAIN
+  ssl_certificate           /etc/nginx/certs/live/DOMAIN/fullchain.pem;
+  ssl_certificate_key       /etc/nginx/certs/live/DOMAIN/privkey.pem;
+  ssl_trusted_certificate   /etc/nginx/certs/live/DOMAIN/chain.pem;
+}

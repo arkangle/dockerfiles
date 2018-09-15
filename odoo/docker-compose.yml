@@ -1,0 +1,39 @@
+version: '3'
+services:
+  proxy:
+    image: nginx:stable-alpine
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - ./proxy/certs:/etc/nginx/certs
+    - ./proxy/www:/var/share/nginx/html
+    - ./proxy/conf:/etc/nginx/conf.d
+  certbot:
+    build:
+      context: ./certbot
+    image: certbot
+    environment:
+      - PROXY_URL=http://odoo:8069
+    volumes:
+    - ./proxy/certs:/etc/letsencrypt
+    - ./proxy/www:/certbot/nginx/www
+    - ./proxy/conf:/certbot/nginx/conf
+  odoo:
+    image: odoo:10
+    depends_on:
+      - db
+    expose:
+      - "8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD="epic yeti stuff"
+  db:
+    image: postgres:10.5
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD="epic yeti stuff"
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./db/data:/var/lib/postgresql/data/pgdata

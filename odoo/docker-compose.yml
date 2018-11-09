@@ -11,7 +11,7 @@ services:
      - odoo
     volumes:
     - ./proxy/certs:/etc/nginx/certs
-    - ./proxy/www:/var/share/nginx/html
+    - ./proxy/www:/usr/share/nginx/html
     - ./proxy/conf:/etc/nginx/conf.d
   certbot:
     build:

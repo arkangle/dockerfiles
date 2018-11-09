@@ -6,6 +6,9 @@ services:
     ports:
     - "80:80"
     - "443:443"
+    restart: always
+    depends_on:
+     - odoo
     volumes:
     - ./proxy/certs:/etc/nginx/certs
     - ./proxy/www:/var/share/nginx/html
@@ -28,12 +31,14 @@ services:
       - db
     expose:
       - "8069"
+    restart: always
     environment:
       - HOST=db
       - USER=odoo
       - PASSWORD="epic yeti stuff"
   db:
     image: postgres:10.5
+    restart: always
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD="epic yeti stuff"

@@ -1,0 +1,48 @@
+version: "2"
+
+services:
+  web:
+    image: tuleap/tuleap-community-edition
+    hostname: tuleap.localtest.me
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443"
+      - "2222:22"
+    #volumes:
+    #  - tuleap-data:/data
+    depends_on:
+      - db
+      - redis
+      - mailhog
+    environment:
+      - TULEAP_FQDN=tuleap.localtest.me
+      - DB_HOST=db
+      - DB_ADMIN_USER=root
+      - DB_ADMIN_PASSWORD=super.secret.password
+      - SITE_ADMINISTRATOR_PASSWORD=super.site.password
+      - TULEAP_FPM_SESSION_MODE=redis
+      - TULEAP_REDIS_SERVER=redis
+      - TULEAP_EMAIL_RELAYHOST=mailhog:1025
+
+  db:
+    image: mysql:5.7
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--sql-mode=NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"]
+    environment:
+      - MYSQL_ROOT_PASSWORD=super.secret.password
+    volumes:
+      - db57-data:/var/lib/mysql
+
+  redis:
+    image: redis:6
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly no
+
+  mailhog:
+    image: mailhog/mailhog
+
+volumes:
+  tuleap-data:
+  db57-data:
+  redis-data:

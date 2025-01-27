@@ -1,9 +1,9 @@
 FROM alpine
 RUN apk add --no-cache \
 bind-tools \
-curl \
 vim \
-bash \
-&& apk cache clean
+curl \
+httpie \
+bash
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
